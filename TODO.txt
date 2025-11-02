@@ -1,3 +1,4 @@
+TODO - supprimer la DB par défaut (biblio.db; biblio.db.orig) et créer un script 'scripts/make_db.py' avec des options pour créer une DB vide avec les tables necessaires et une DB d'exemple
 TODO - make_code_barre(): vérifier si le code barre n'est pas déjà dans la DB
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
