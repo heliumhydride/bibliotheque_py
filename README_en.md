@@ -1,13 +1,13 @@
-# bibliothèque.py
+# 📚 bibliothèque.py
 
 [README en Français 🇫🇷](https://github.com/heliumhydride/bibliotheque_py/blob/master/README.md)
 
 a [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)-based library management software
 
-### why?
+### ❓ why?
 It was a project in senior year of high school for programming class.
 
-### installation
+### 🚀 installation
 Clone this repo, then open a cmd/terminal in it, and run:
 ```sh
 python3 bibliothèque.py
