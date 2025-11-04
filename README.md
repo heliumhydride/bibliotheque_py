@@ -57,4 +57,4 @@ scripts/creer_menu.py "Truc 1 ->" "Truc 2 ->" "Fermer (x)"
 +---------------------+
 ```
 
-Il suffit de faire copier coller du terminal dans un print("""...""")
+Il suffit de faire copier coller du terminal dans un print("""...""") (sans la liste printée, qui sert a montrer les arguments)
