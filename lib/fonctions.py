@@ -33,9 +33,18 @@ def make_code_barre() -> str:
     """
     Donne un code barre aléatoire
     """
-    # TODO: vérifier si le code barre n'est pas déjà dans la DB...
-    return f"{r.randint(0, int(999999999999999)):015d}" # extrêmement moche, mais compact et ça marche
     # en soit, notre code barre est juste un nombre à 15 chiffres (par contre faut s'assurer d'avoir des zéros jusqu'au bout, d'ou le délire avec les f-strings)
+
+    code_barre_valide = False
+    while not code_barre_valide:
+        code_barre = f"{r.randint(0, int(999999999999999)):015d}" # extrêmement moche, mais compact et ça marche
+        # on vérifie si le code barre n'existe pas déjà
+        curseur.execute("""
+        SELECT code_barre FROM USAGER
+        WHERE code_barre=?""", [code_barre])
+        if(curseur.fetchall() == 0):
+            code_barre_valide = True
+    return code_barre
 
 def faire_qr_code(nom:str, prenom:str, code_barre:int) -> None:
     pass
