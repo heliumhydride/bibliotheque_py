@@ -1,9 +1,9 @@
-TODO - supprimer la DB par défaut (biblio.db; biblio.db.orig) et créer un script 'scripts/make_db.py' avec des options pour créer une DB vide avec les tables necessaires et une DB d'exemple
 TODO - make_code_barre(): vérifier si le code barre n'est pas déjà dans la DB
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
 TODO - sous menu information, pour avoir les infos sur tout (un livre, un usager, un emprunt en particulier, ...)
 TODO - nettoyer le code et les commentaires inutiles
 
+FIXME - invalid literal for int() with base 10: 'x' ou tout autre caractère
 FIXME - quand on rentre et sort du submenu 1 plusieurs fois, le main_menu exit plusieur fois (on a le message au revoir plusieur fois)
 FIXME - quand on va dans le menu 3->2 (changer données d'un utilisateur), et qu'on sort du menu principal, ça nous remet dans le menu 3
