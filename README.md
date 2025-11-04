@@ -27,6 +27,7 @@ quelle base de donnée voulez vous initialiser?
 --> ...
 ```
 
+Puis lancez l'interface de gestion:
 ```sh
 python3 bibliothèque.py
 ```
