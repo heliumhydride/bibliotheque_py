@@ -324,7 +324,7 @@ def info_livre() -> None:
         print(f"| Annee: {liste_res[4]}")
         print("")
     else:
-        print(f"[❌] Livre d'ISBN {isbn} introuvable")
+        print(f"[❌] Livre d'ISBN '{isbn}' introuvable")
     
     pause()
 
