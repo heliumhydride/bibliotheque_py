@@ -4,6 +4,8 @@
 
 a [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)-based library management software
 
+![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
+
 ### ❓ why?
 It was a project in senior year of high school for programming class.
 
@@ -15,17 +17,7 @@ python3 scripts/make_db.py
 ```
 
 The process is guided:
-```
-La DB n'existe pas.
-
-quelle base de donnée voulez vous initialiser?
-1. Base de donnée vide pour la production (recommandé) >>>
-2. Base de donnée avec des exemples (pour tester le logiciel) >>>
-
-* si vous ne savez pas, tapez '1'
-
---> ...
-```
+![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/make_db.png)
 
 Translation:
 ```
