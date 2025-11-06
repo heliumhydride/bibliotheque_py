@@ -124,13 +124,15 @@ WHERE code_barre = (
 def recherche_mot_cle() -> None:
     recherche = input("mot clé ? --> ")
     # ATTENTION CA FAIT MAL AUX YEUX!!!
-    curseur.execute("""SELECT titre, AUTEUR.prenom,AUTEUR.nom, editeur,annee, LIVRE.isbn
-FROM LIVRE JOIN ( 
-	AUTEUR_DE JOIN AUTEUR
-	ON AUTEUR_DE.id_auteur = AUTEUR.id_auteur
-) ON LIVRE.isbn = AUTEUR_DE.isbn
-WHERE titre LIKE ?""",
-                       [f"%{recherche}%"])
+    curseur.execute("""
+        SELECT titre, AUTEUR.prenom,AUTEUR.nom, editeur,annee, LIVRE.isbn
+        FROM LIVRE JOIN ( 
+        	AUTEUR_DE JOIN AUTEUR
+        	ON AUTEUR_DE.id_auteur = AUTEUR.id_auteur
+        ) ON LIVRE.isbn = AUTEUR_DE.isbn
+        WHERE titre LIKE ?""",
+        [f"%{recherche}%"]
+    )
     liste_res = curseur.fetchall()
     if len(liste_res) > 0:
         print(f"[✅] {len(liste_res)} livres trouvés ayant le mot \"{recherche}\"")
@@ -299,3 +301,54 @@ def delete_usager() -> None:
         connexion.commit()
 
     pause()
+
+### Submenu 5
+
+def info_livre() -> None:
+    isbn = input("isbn? --> ")
+    curseur.execute("""
+        SELECT titre, AUTEUR.prenom,AUTEUR.nom, editeur,annee
+        FROM LIVRE JOIN ( 
+        	AUTEUR_DE JOIN AUTEUR
+        	ON AUTEUR_DE.id_auteur = AUTEUR.id_auteur
+        ) ON LIVRE.isbn = AUTEUR_DE.isbn
+        WHERE isbn = ?""",
+        [isbn]
+    )
+    liste_res = curseur.fetchall()
+    if(len(liste_res) >= 1):
+        print(f"[📕] LIVRE ({isbn})")
+        print(f"| Titre: {liste_res[0]}")
+        print(f"| Auteur: {liste_res[1]} {liste_res[2]}")
+        print(f"| Editeur: {liste_res[3]}")
+        print(f"| Annee: {liste_res[4]}")
+        print("")
+    else:
+        print(f"[❌] Livre d'ISBN {isbn} introuvable")
+    
+    pause()
+
+def info_usager() -> None:
+    code_barre = input("code barre? --> ")
+    curseur.execute("""
+        SELECT prenom, nom, email, adresse, ville, cp FROM USAGER
+        WHERE code_barre = ?
+        """,
+        [code_barre]
+    )
+    liste_res = curseur.fetchall()
+    if(len(liste_res) >= 1):
+        print(f"[🧑] USAGER ({code_barre})")
+        print(f"| Prénom, Nom: {liste_res[0]} {liste_res[1]}")
+        print(f"| E-mail: {liste_res[2]}")
+        print(f"| Adresse: {liste_res[3]}")
+        print(f"| Ville: {liste_res[4]}")
+        print(f"| Code postal: {liste_res[5]}")
+        print("")
+    else:
+        print(f"[❌] Aucune personne avec le code barre {code_barre} trouvée.")
+    pause()
+
+def info_emprunt() -> None:
+    # date retour, emprunteur (nom, prénom, code_barre)
+    pass
