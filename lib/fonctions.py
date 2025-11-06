@@ -100,7 +100,7 @@ def recherche_isbn() -> None:
         print("[📄] EMPRUNT")
         print(f"| Date de retour: {date_retour}")
         print("| Au nom de:")
-        print("|   [🧑] PERSONNE")
+        print("|   [🧑] USAGER")
         print(f"|   | Prénom, Nom: {personne[1]} {personne[0]}")
         print(f"|   | Code barre: {personne[2]}")
         print("")
