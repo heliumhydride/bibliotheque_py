@@ -2,5 +2,3 @@ TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
 TODO - nettoyer le code et les commentaires inutiles
 
-FIXME - quand on rentre et sort du submenu 1 plusieurs fois, le main_menu exit plusieur fois (on a le message au revoir plusieur fois)
-FIXME - quand on va dans le menu 3->2 (changer données d'un utilisateur), et qu'on sort du menu principal, ça nous remet dans le menu 3
