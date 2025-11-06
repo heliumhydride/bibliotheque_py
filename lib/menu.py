@@ -39,12 +39,13 @@ def main_menu() -> None:
       |      2. Insérer dans la DB >>>         |
       |      3. Mettre à jour la DB >>>        |
       |      4. Supprimer dans la DB >>>       |
-      |      5. Terminer [x]                   |
+      |      5. Informations sur ... >>>       |
+      |      6. Terminer [x]                   |
       |                                        |
       +----------------------------------------+
     """)
-    entrer_menu = menu_helper_choisir([1,2,3,4,5])
-    if entrer_menu != 5:
+    entrer_menu = menu_helper_choisir([1,2,3,4,5,6])
+    if entrer_menu != 6:
         entrer_fonction = f"submenu_{entrer_menu}()"
         eval(entrer_fonction)
     print(">>> Au revoir ! 👋 <<<")
@@ -158,4 +159,22 @@ def submenu_4() -> None: # Supprimer de la DB
     else:
         main_menu()
 
-
+def submenu_5() -> None: # Informations sur...
+    effacer_ecran()
+    printer_intro()
+    print("""
+      +----------------------------------+
+      |                                  |
+      |    1. Infos sur un livre >>>     |
+      |    2. Infos sur un usager >>>    |
+      |    3. Retour [x]                 |
+      |                                  |
+      +----------------------------------+
+    """)
+    entrer_menu = menu_helper_choisir([1,2,3])
+    if entrer_menu != 3:
+        fonctions = ["info_livre()", "info_usager()"]
+        eval(fonctions[entrer_menu - 1])
+        submenu_5()
+    else:
+        main_menu()
