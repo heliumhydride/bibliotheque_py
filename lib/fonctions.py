@@ -76,22 +76,33 @@ def recherche_isbn() -> None:
     isbn = input("isbn? --> ")
 
     curseur.execute("""
-SELECT nom,prenom,code_barre FROM USAGER
-WHERE code_barre = (
-	SELECT code_barre FROM EMPRUNT
-	WHERE isbn=?
-)
-""", [isbn])
+        SELECT nom,prenom,code_barre FROM USAGER
+        WHERE code_barre = (
+        	SELECT code_barre FROM EMPRUNT
+        	WHERE isbn=?
+        )""",
+        [isbn]
+    )
+    personne = curseur.fetchall()
 
-    liste_res = curseur.fetchall()
-    if len(liste_res) > 0:
-        print(f"[✅] Le livre d'ISBN {isbn} a été emprunté par {len(liste_res)} personnes. Les voici:")
+    curseur.execute("""
+        SELECT retour FROM EMPRUNT
+        WHERE isbn=?
+        """,
+        [isbn]
+    )
+    date_retour = curseur.fetchall()
+
+    if(len(liste_res) >= 1):
+        print(f"[✅] Le livre d'ISBN {isbn} a été emprunté.")
         print("")
-        for personne in liste_res:
-            print("[🧑] PERSONNE")
-            print(f"| Prénom, Nom: {personne[1]} {personne[0]}")
-            print(f"| Code barre: {personne[2]}")
-            print("")
+        print("[📄] EMPRUNT")
+        print("| Date de retour: {date_retour}")
+        print("| Au nom de:")
+        print("| | [🧑] PERSONNE")
+        print(f"| | Prénom, Nom: {personne[1]} {personne[0]}")
+        print(f"| | Code barre: {personne[2]}")
+        print("")
     else:
         print(f"[❌] Le livre d'ISBN {isbn} n'a pas été emprunté par une seule personne...")
     
