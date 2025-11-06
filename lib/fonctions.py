@@ -84,7 +84,8 @@ def recherche_isbn() -> None:
         [isbn]
     )
     personne = curseur.fetchall()
-    personne = personne[0] # une seule personne peut emprunter !!!
+    if(len(personne) >= 1):
+        personne = personne[0] # une seule personne peut emprunter !!!
 
     curseur.execute("""
         SELECT retour FROM EMPRUNT
