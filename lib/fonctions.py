@@ -84,6 +84,7 @@ def recherche_isbn() -> None:
         [isbn]
     )
     personne = curseur.fetchall()
+    personne = personne[0] # une seule personne peut emprunter !!!
 
     curseur.execute("""
         SELECT retour FROM EMPRUNT
@@ -349,6 +350,8 @@ def info_usager() -> None:
         [code_barre]
     )
     liste_res = curseur.fetchall()
+
+    liste_res = liste_res[0] # de toute façon on a qu'un seul résultat
     if(len(liste_res) >= 1):
         print(f"[🧑] USAGER ({code_barre})")
         print(f"| Prénom, Nom: {liste_res[0]} {liste_res[1]}")
