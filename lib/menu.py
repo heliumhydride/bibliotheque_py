@@ -30,9 +30,10 @@ def menu_helper_choisir(L:list):
     return choix
 
 def main_menu() -> None:
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +----------------------------------------+
       |                                        |
       |      1. Rechercher dans la DB >>>      |
@@ -43,17 +44,20 @@ def main_menu() -> None:
       |      6. Terminer [x]                   |
       |                                        |
       +----------------------------------------+
-    """)
-    entrer_menu = menu_helper_choisir([1,2,3,4,5,6])
-    if entrer_menu != 6:
-        entrer_fonction = f"submenu_{entrer_menu}()"
-        eval(entrer_fonction)
+        """)
+        entrer_menu = menu_helper_choisir([1,2,3,4,5,6])
+        if entrer_menu != 6:
+            entrer_fonction = f"submenu_{entrer_menu}()"
+            eval(entrer_fonction)
+        else:
+            break
     print(">>> Au revoir ! 👋 <<<")
 
 def submenu_1() -> None: # Rechercher dans la DB
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +---------------------------------------------------------------+
       |                                                               |
       |    1. Rechercher les livres empruntés par une personne >>>    |
@@ -63,19 +67,19 @@ def submenu_1() -> None: # Rechercher dans la DB
       |    5. Retour [x]                                              |
       |                                                               |
       +---------------------------------------------------------------+
-""")
-    entrer_menu = menu_helper_choisir([1,2,3,4,5])
-    if entrer_menu != 5:
-        fonctions = ["recherche_emprunt_personne()", "recherche_isbn()", "afficher_retards()", "recherche_mot_cle()"]
-        eval(fonctions[entrer_menu-1])
-        submenu_1()
-    else:
-        main_menu()
+      """)
+        entrer_menu = menu_helper_choisir([1,2,3,4,5])
+        if entrer_menu != 5:
+            fonctions = ["recherche_emprunt_personne()", "recherche_isbn()", "afficher_retards()", "recherche_mot_cle()"]
+            eval(fonctions[entrer_menu-1])
+        else:
+            break
 
 def submenu_2() -> None: # Insérer dans le DB
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +---------------------------------+
       |                                 |
       |    1. Nouvel usager >>>         |
@@ -84,19 +88,19 @@ def submenu_2() -> None: # Insérer dans le DB
       |    4. Retour [x]                |
       |                                 |
       +---------------------------------+
-""")
-    entrer_menu = menu_helper_choisir([1,2,3,4])
-    if entrer_menu != 4:
-        fonctions = ["new_usager()", "new_livre()", "new_emprunt()"]
-        eval(fonctions[entrer_menu - 1])
-        submenu_2()
-    else:
-        main_menu()
+    """)
+        entrer_menu = menu_helper_choisir([1,2,3,4])
+        if entrer_menu != 4:
+            fonctions = ["new_usager()", "new_livre()", "new_emprunt()"]
+            eval(fonctions[entrer_menu - 1])
+        else:
+            break
 
 def submenu_3() -> None: # Mettre a jour DB
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +-----------------------------------------------+
       |                                               |
       |    1. Changer une date de retour >>>          |
@@ -104,20 +108,20 @@ def submenu_3() -> None: # Mettre a jour DB
       |    3. Retour [x]                              |
       |                                               |
       +-----------------------------------------------+
-""")
-    entrer_menu = menu_helper_choisir([1,2,3])
-    if entrer_menu != 3:
-        fonctions = ["ch_date_retour_livre()", "submenu_3_menu_usager()"]
-        eval(fonctions[entrer_menu - 1])
-        submenu_3()
-    else:
-        main_menu()
+    """)
+        entrer_menu = menu_helper_choisir([1,2,3])
+        if entrer_menu != 3:
+            fonctions = ["ch_date_retour_livre()", "submenu_3_menu_usager()"]
+            eval(fonctions[entrer_menu - 1])
+        else:
+            break
 
 def submenu_3_menu_usager() -> None:
     # Frontend pour la fonction "ch_usager(donnée:str)" (prend en compte des strs comme "prenom", "nom", "cp", "ville", "email") 
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +--------------------------------------+
       |                                      |
       |    1. Modifier un nom >>>            |
@@ -129,19 +133,19 @@ def submenu_3_menu_usager() -> None:
       |    7. Retour [x]                     |
       |                                      |
       +--------------------------------------+
-""")
-    entrer_menu = menu_helper_choisir([1,2,3,4,5,6,7])
-    if entrer_menu != 7:
-        donnees_a_modif = ["nom","prenom","adresse","cp","ville","email"]
-        eval(f"ch_usager('{donnees_a_modif[entrer_menu - 1]}')")
-        submenu_3_menu_usager()
-    else:
-        submenu_3()
+    """)
+        entrer_menu = menu_helper_choisir([1,2,3,4,5,6,7])
+        if entrer_menu != 7:
+            donnees_a_modif = ["nom","prenom","adresse","cp","ville","email"]
+            eval(f"ch_usager('{donnees_a_modif[entrer_menu - 1]}')") # exemple: ch_usager('nom')
+        else:
+            break
 
 def submenu_4() -> None: # Supprimer de la DB
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +-----------------------------------+
       |                                   |
       |    1. Supprimer un livre >>>      |
@@ -150,19 +154,19 @@ def submenu_4() -> None: # Supprimer de la DB
       |    4. Retour [x]                  |
       |                                   |
       +-----------------------------------+
-""")
-    entrer_menu = menu_helper_choisir([1,2,3,4])
-    if entrer_menu != 4:
-        fonctions = ["delete_livre()", "delete_emprunt()", "delete_usager()"]
-        eval(fonctions[entrer_menu - 1])
-        submenu_4()
-    else:
-        main_menu()
+    """)
+        entrer_menu = menu_helper_choisir([1,2,3,4])
+        if entrer_menu != 4:
+            fonctions = ["delete_livre()", "delete_emprunt()", "delete_usager()"]
+            eval(fonctions[entrer_menu - 1])
+        else:
+            break
 
 def submenu_5() -> None: # Informations sur...
-    effacer_ecran()
-    printer_intro()
-    print("""
+    while True:
+        effacer_ecran()
+        printer_intro()
+        print("""
       +----------------------------------+
       |                                  |
       |    1. Infos sur un livre >>>     |
@@ -171,10 +175,9 @@ def submenu_5() -> None: # Informations sur...
       |                                  |
       +----------------------------------+
     """)
-    entrer_menu = menu_helper_choisir([1,2,3])
-    if entrer_menu != 3:
-        fonctions = ["info_livre()", "info_usager()"]
-        eval(fonctions[entrer_menu - 1])
-        submenu_5()
-    else:
-        main_menu()
+        entrer_menu = menu_helper_choisir([1,2,3])
+        if entrer_menu != 3:
+            fonctions = ["info_livre()", "info_usager()"]
+            eval(fonctions[entrer_menu - 1])
+        else:
+            break
