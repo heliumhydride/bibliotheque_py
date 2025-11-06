@@ -17,6 +17,7 @@ python3 scripts/make_db.py
 ```
 
 The process is guided:
+
 ![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/make_db.png)
 
 Translation:

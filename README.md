@@ -17,6 +17,7 @@ python3 scripts/make_db.py
 ```
 
 Le processus est guidé:
+
 ![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/make_db.png)
 
 Puis lancez l'interface de gestion:
