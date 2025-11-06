@@ -4,6 +4,8 @@
 
 un logiciel de gestion de bibliothèque en [TUI](https://fr.wikipedia.org/wiki/Environnement_en_mode_texte)
 
+!(https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
+
 ### ❓ pourquoi?
 C'est pour un projet de NSI en Terminale sur les bases de données.
 
@@ -15,17 +17,7 @@ python3 scripts/make_db.py
 ```
 
 Le processus est guidé:
-```
-La DB n'existe pas.
-
-quelle base de donnée voulez vous initialiser?
-1. Base de donnée vide pour la production (recommandé) >>>
-2. Base de donnée avec des exemples (pour tester le logiciel) >>>
-
-* si vous ne savez pas, tapez '1'
-
---> ...
-```
+!(https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/make_db.png)
 
 Puis lancez l'interface de gestion:
 ```sh
