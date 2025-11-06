@@ -93,7 +93,7 @@ def recherche_isbn() -> None:
     )
     date_retour = curseur.fetchall()
 
-    if(len(liste_res) >= 1):
+    if(len(personne) >= 1):
         print(f"[✅] Le livre d'ISBN {isbn} a été emprunté.")
         print("")
         print("[📄] EMPRUNT")
@@ -323,16 +323,17 @@ def info_livre() -> None:
         	AUTEUR_DE JOIN AUTEUR
         	ON AUTEUR_DE.id_auteur = AUTEUR.id_auteur
         ) ON LIVRE.isbn = AUTEUR_DE.isbn
-        WHERE isbn = ?""",
+        WHERE LIVRE.isbn = ?""",
         [isbn]
     )
     liste_res = curseur.fetchall()
+    print(liste_res)
     if(len(liste_res) >= 1):
         print(f"[📕] LIVRE ({isbn})")
-        print(f"| Titre: {liste_res[0]}")
-        print(f"| Auteur: {liste_res[1]} {liste_res[2]}")
-        print(f"| Editeur: {liste_res[3]}")
-        print(f"| Annee: {liste_res[4]}")
+        print(f"| Titre: {liste_res[0][0]}")
+        print(f"| Auteur: {liste_res[0][1]} {liste_res[0][2]}")
+        print(f"| Editeur: {liste_res[0][3]}")
+        print(f"| Annee: {liste_res[0][4]}")
         print("")
     else:
         print(f"[❌] Livre d'ISBN '{isbn}' introuvable")
