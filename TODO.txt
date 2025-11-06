@@ -1,6 +1,5 @@
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
-TODO - sous menu information, pour avoir les infos sur tout (un livre, un usager, un emprunt en particulier, ...)
 TODO - nettoyer le code et les commentaires inutiles
 
 FIXME - quand on rentre et sort du submenu 1 plusieurs fois, le main_menu exit plusieur fois (on a le message au revoir plusieur fois)
