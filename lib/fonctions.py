@@ -328,7 +328,7 @@ def info_livre() -> None:
         [isbn]
     )
     liste_res = curseur.fetchall()
-    print(liste_res)
+
     if(len(liste_res) >= 1):
         print(f"[📕] LIVRE ({isbn})")
         print(f"| Titre: {liste_res[0][0]}")
