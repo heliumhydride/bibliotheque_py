@@ -348,7 +348,3 @@ def info_usager() -> None:
     else:
         print(f"[❌] Aucune personne avec le code barre {code_barre} trouvée.")
     pause()
-
-def info_emprunt() -> None:
-    # date retour, emprunteur (nom, prénom, code_barre)
-    pass
