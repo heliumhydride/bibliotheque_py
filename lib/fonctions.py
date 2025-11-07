@@ -112,22 +112,25 @@ def recherche_isbn() -> None:
 
 def afficher_retards() -> None:
     curseur.execute("""
-SELECT nom,prenom,code_barre FROM USAGER
-WHERE code_barre = (
-    SELECT code_barre FROM EMPRUNT
-    WHERE retour < ?
-)
-    """, [date_du_jour()])
-
+        SELECT USAGER.code_barre, isbn, retour, nom, prenom FROM
+        EMPRUNT JOIN USAGER ON EMPRUNT.code_barre = USAGER.code_barre
+        WHERE retour < ?
+        """, [date_du_jour()]
+    )
     liste_res = curseur.fetchall()
+
     print(f"[ℹ️] Nous sommes le {date_du_jour()}.")
     if len(liste_res) > 0:
-        print(f"[‼️] {len(liste_res)} personnes n'ont pas rendu un/des livres et sont en retard! Les voici:")
+        print(f"[‼️] {len(liste_res)} emprunts n'ont pas étés rendus! Les voici:")
         print("")
-        for personne in liste_res:
-            print("[🧑] USAGER")
-            print(f"| Prénom, Nom: {personne[1]} {personne[0]}")
-            print(f"| Code barre: {personne[2]}")
+        for emprunt in liste_res:
+            print("[📄] EMPRUNT (en retard)")
+            print(f"| ISBN: {emprunt[1]}")
+            print(f"| Date de retour: {emprunt[2]}")
+            print("| Au nom de:")
+            print("|   [🧑] USAGER")
+            print(f"|   | Prénom, Nom: {emprunt[4]} {emprunt[3]}")
+            print(f"|   | Code barre: {emprunt[0]}")
             print("")
     else:
         print("[🥳] Aucune personne n'est en retard! Génial!")
