@@ -1,3 +1,4 @@
+TODO - afficher les retards correctement (emprunt -> [date_retour, personne,isbn])
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
 ^^^^ pour les deux du dessus faut surement mettre un error handling des sqlite3.OperationalError (avec des try/except), comme il y a dans 'scripts/make_db.py'
