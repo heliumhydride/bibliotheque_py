@@ -40,4 +40,3 @@ retour DATE NOT NULL,
 FOREIGN KEY (code_barre) REFERENCES USAGER(code_barre),
 FOREIGN KEY (isbn) REFERENCES LIVRE(isbn),
 PRIMARY KEY (isbn));
-

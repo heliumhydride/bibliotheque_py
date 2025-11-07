@@ -3,6 +3,13 @@
 import os
 import sqlite3 as sgbd
 
+def cleanup_backslash_n(s:str):
+    res = ""
+    for c in s:
+        if c != '\n':
+            res += c
+    return res
+
 def print_status(type:str, s:str):
     couleur = 0
     if(type == "warning"):
@@ -56,14 +63,17 @@ elif(choix_type_db == 2):
 script_sql = fd.read()
 fd.close()
 
-commandes_sql = script_sql.split(';')
+commandes_sql = cleanup_backslash_n(script_sql).split(';')
 
 for cmd in commandes_sql:
     try:
         c.execute(cmd)
     except sgbd.OperationalError as msg:
         print_status("error", f"""
-!!! La commande suivante !!! {cmd}
+!!! La commande suivante !!!
+
+{cmd}
+
 !!! A échouée avec l'erreur !!!
 
 {msg}
