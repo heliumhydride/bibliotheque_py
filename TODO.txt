@@ -1,6 +1,8 @@
+TODO - créer l'auteur et auteur_de dans la creation du nouveau livre, s'il n'existe pas déjà
+
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
-^^^^ pour les deux du dessus faut surement mettre un error handling des sqlite3.OperationalError (avec des try/except), comme il y a dans 'scripts/make_db.py'
+^^^^ pour les deux du dessus faut surement mettre un error handling des sqlite3.IntegrityError Unique constraint failed (avec des try/except), comme il y a dans 'scripts/make_db.py'
 TODO - afficher_retards(): il faudrait grouper les personnes et les emprunts, exemple: une personne est en retard de deux livres
 TODO - nettoyer le code et les commentaires inutiles
 TODO - tester TOUTES LES FEATURES du programme
