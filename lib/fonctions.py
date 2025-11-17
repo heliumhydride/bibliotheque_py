@@ -42,7 +42,7 @@ def make_code_barre() -> str:
         curseur.execute("""
         SELECT code_barre FROM USAGER
         WHERE code_barre=?""", [code_barre])
-        if(curseur.fetchall() == 0):
+        if(len(curseur.fetchall()) == 0):
             code_barre_valide = True
     return code_barre
 
