@@ -1,4 +1,4 @@
-TODO - créer l'auteur et auteur_de dans la creation du nouveau livre, s'il n'existe pas déjà
+TODO - créer l'auteur et auteur_de dans la creation du nouveau livre, s'il n'existe pas déjà [RE-TESTER L'AJOUT DE LIVRE!!]
 
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà

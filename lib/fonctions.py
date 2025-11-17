@@ -193,17 +193,73 @@ VALUES
 
 def new_livre() -> None:
     print("[📕] LIVRE")
-    liste_info = []
-    liste_info.append(input("| Titre: "))
-    liste_info.append(input("| Editeur: "))
-    liste_info.append(int(input("| Année: ")))
-    liste_info.append(input("| ISBN: "))
-    
+    liste_info = {} # titre // prenom auteur // nom auteur // editeur // annee // isbn
+
+    liste_info["titre"] = input("| Titre: ")
+    liste_info["prenom_aut"] = input("| Prenom de l'auteur: ")
+    liste_info["nom_aut"] = input("| Nom de l'auteur: ")
+    liste_info["editeur"] = input("| Editeur: ")
+    liste_info["annee"] = int(input("| Année: "))
+    liste_info["isbn"] = input("| ISBN: ")
+
+    # on vérifie si l'auteur existe, sinon on l'ajoute a la db dans la table AUTEUR
     curseur.execute("""
-INSERT INTO LIVRE (titre,editeur,annee,isbn)
-VALUES
-(?,?,?,?)
-""", liste_info)
+        SELECT * FROM AUTEUR
+        WHERE nom = ? AND prenom = ?""",
+        (
+            liste_info["nom_aut"],
+            liste_info["prenom_aut"]
+        )
+    )
+
+    if len(curseur.fetchall()) == 0: # si l'auteur n'est pas trouvé
+        print("DEBUG -- auteur non trouvé, ajout dans la DB")
+        curseur.execute("""
+            INSERT INTO AUTEUR (nom,prenom)
+            VALUES (?,?)
+        """,
+            (
+                liste_info["nom_aut"],
+                liste_info["prenom_aut"]
+            )
+        )
+
+    # On récupère l'id_auteur de l'auteur concerné
+    curseur.execute("""
+        SELECT id_auteur FROM AUTEUR
+        WHERE nom = ? AND prenom = ?
+    """,
+        (
+                liste_info["nom_aut"],
+                liste_info["prenom_aut"]
+        )
+    )
+
+    liste_info["id_aut"] = curseur.fetchall[0]
+    print(f"DEBUG -- le type de id auteur est {type(liste_info[\"id_aut\"])}")
+
+    curseur.execute("""
+        INSERT INTO AUTEUR_DE (id_aut, isbn)
+        VALUES (?,?)
+    """,
+        (
+            liste_info["id_aut"],
+            liste_info["isbn"]
+        )
+    )
+
+    curseur.execute("""
+        INSERT INTO LIVRE (titre,editeur,annee,isbn)
+        VALUES
+        (?,?,?,?)
+        """,
+        (
+            liste_info["titre"],
+            liste_info["editeur"],
+            liste_info["annee"],
+            liste_info["isbn"]
+        )
+    )
     connexion.commit()
 
     pause()
