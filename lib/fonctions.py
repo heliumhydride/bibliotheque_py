@@ -213,7 +213,6 @@ def new_livre() -> None:
     )
 
     if len(curseur.fetchall()) == 0: # si l'auteur n'est pas trouvé
-        print("DEBUG -- auteur non trouvé, ajout dans la DB")
         curseur.execute("""
             INSERT INTO AUTEUR (nom,prenom)
             VALUES (?,?)
@@ -235,11 +234,10 @@ def new_livre() -> None:
         )
     )
 
-    liste_info["id_aut"] = curseur.fetchall[0]
-    print(f"DEBUG -- le type de id auteur est {type(liste_info[\"id_aut\"])}")
+    liste_info["id_aut"] = curseur.fetchall()[0][0]
 
     curseur.execute("""
-        INSERT INTO AUTEUR_DE (id_aut, isbn)
+        INSERT INTO AUTEUR_DE (id_auteur, isbn)
         VALUES (?,?)
     """,
         (
