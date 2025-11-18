@@ -280,6 +280,23 @@ VALUES
 
 ### Submenu 3
 def ch_date_retour_livre() -> None:
+    print("[📄] EMPRUNT")
+    liste_info = []
+    liste_info.append(input("| ISBN emprunté: "))
+    liste_info.append(input("| Nouvelle date de retour (yyy-mm-jj): "))
+
+    curseur.execute("""
+        UPDATE EMPRUNT
+        SET retour = ?
+        WHERE isbn = ?
+    """,
+        (
+            liste_info[1],
+            liste_info[0]
+        )
+    )
+
+    connexion.commit()
     pause()
 
 def ch_usager(donnee:str) -> None:

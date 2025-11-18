@@ -16,10 +16,10 @@ ce qui marche:
   - emprunter un livre (2.3)
   - infos sur livre (5.1)
   - infos sur usager (5.2)
-  - modif données usager (tous les types de données) (3.2)
   - supprimer un livre (4.1)
   - supprimer un emprunt (4.2)
   - supprimer un usager (4.3)
+  - changer une date de retour (3.1)
 
-marche pas:
-  - changer une date de retour (3.1) [non implémenté]
+devrait marcher mais pas fini de tester:
+  - modif données usager (tous les types de données) (3.2)
