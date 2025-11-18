@@ -1,8 +1,28 @@
-TODO - créer l'auteur et auteur_de dans la creation du nouveau livre, s'il n'existe pas déjà [RE-TESTER L'AJOUT DE LIVRE!!]
-
 TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
 TODO - new_*(): vérifier si le contenu a créer n'existe pas déjà
 ^^^^ pour les deux du dessus faut surement mettre un error handling des sqlite3.IntegrityError Unique constraint failed (avec des try/except), comme il y a dans 'scripts/make_db.py'
 TODO - afficher_retards(): il faudrait grouper les personnes et les emprunts, exemple: une personne est en retard de deux livres
 TODO - nettoyer le code et les commentaires inutiles
-TODO - tester TOUTES LES FEATURES du programme
+TODO - tester TOUTES LES FEATURES du programme**
+
+** TESTS
+ce qui marche:
+  - recup emprunts d'une personne (1.1)
+  - voir si un livre est emprunté et par qui (1.2)
+  - afficher les retards (1.3)
+  - rechercher par mot clé (1.4)
+  - ajouter un usager (2.1)
+  - ajotuer un livre  (2.2)
+  - emprunter un livre (2.3)
+  - infos sur livre (5.1)
+  - infos sur usager (5.2)
+
+je sais pas:
+  - changer une date de retour (3.1)
+  - modif données usager (tous les types de données) (3.2)
+  - supprimer un livre (4.1)
+  - supprimer un emprunt (4.2)
+  - supprimer un usager (4.3)
+
+marche pas:
+  -
