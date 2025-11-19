@@ -26,5 +26,9 @@ curseur = connexion.cursor()
 mettre_connexion(connexion) # Voir lib/fonctions.py
 mettre_curseur(curseur)
 
-menu.main_menu()
+try:
+    menu.main_menu()
+except KeyboardInterrupt:
+    print(">>> Au revoir ! 👋 <<<")
+
 connexion.close()
