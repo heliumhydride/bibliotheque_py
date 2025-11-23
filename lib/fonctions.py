@@ -1,6 +1,7 @@
 import random as r
 import sqlite3 as sgbd
 import datetime as dt
+import itertools as it
 
 ### Fonctions utiles
 
@@ -123,15 +124,25 @@ def afficher_retards() -> None:
     if len(liste_res) > 0:
         print(f"[‼️] {len(liste_res)} emprunts n'ont pas étés rendus! Les voici:")
         print("")
-        for emprunt in liste_res:
-            print("[📄] EMPRUNT (en retard)")
-            print(f"| ISBN: {emprunt[1]}")
-            print(f"| Date de retour: {emprunt[2]}")
-            print("| Au nom de:")
-            print("|   [🧑] USAGER")
-            print(f"|   | Prénom, Nom: {emprunt[4]} {emprunt[3]}")
-            print(f"|   | Code barre: {emprunt[0]}")
+        for key, group in it.groupby(liste_res, lambda x: (x[0], x[3], x[4])):
+            print("[🧑] USAGER")
+            print(f"| Prénom, Nom: {key[2]} {key[1]}")
+            print(f"| Code barre: {key[0]}")
+            print(f"| En retard de:")
+            for emprunt in group:
+                print(f"|   [📕] LIVRE")
+                print(f"|    | ISBN: {emprunt[1]}")
             print("")
+
+        # for emprunt in liste_res:
+        #     print("[📄] EMPRUNT (en retard)")
+        #     print(f"| ISBN: {emprunt[1]}")
+        #     print(f"| Date de retour: {emprunt[2]}")
+        #     print("| Au nom de:")
+        #     print("|   [🧑] USAGER")
+        #     print(f"|   | Prénom, Nom: {emprunt[4]} {emprunt[3]}")
+        #     print(f"|   | Code barre: {emprunt[0]}")
+        #     print("")
     else:
         print("[🥳] Aucune personne n'est en retard! Génial!")
 
