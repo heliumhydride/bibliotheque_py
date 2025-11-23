@@ -94,7 +94,7 @@ def recherche_isbn() -> None:
         """,
         [isbn]
     )
-    date_retour = curseur.fetchall()
+    date_retour = curseur.fetchall()[0][0]
 
     if(len(personne) >= 1):
         print(f"[✅] Le livre d'ISBN {isbn} a été emprunté.")
