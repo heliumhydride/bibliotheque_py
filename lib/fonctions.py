@@ -257,19 +257,22 @@ def new_livre() -> None:
         )
     )
 
-    curseur.execute("""
-        INSERT INTO LIVRE (titre,editeur,annee,isbn)
-        VALUES
-        (?,?,?,?)
-        """,
-        (
-            liste_info["titre"],
-            liste_info["editeur"],
-            liste_info["annee"],
-            liste_info["isbn"]
+    try:
+        curseur.execute("""
+            INSERT INTO LIVRE (titre,editeur,annee,isbn)
+            VALUES
+            (?,?,?,?)
+            """,
+            (
+                liste_info["titre"],
+                liste_info["editeur"],
+                liste_info["annee"],
+                liste_info["isbn"]
+            )
         )
-    )
-    connexion.commit()
+        connexion.commit()
+    except sgbd.IntegrityError:
+        print(f"[‼️] Le livre d'isbn {liste_info["isbn"]} n'a pas pu être créé. Peut-être existe-t-il déjà ?")
 
     pause()
 
@@ -280,12 +283,15 @@ def new_emprunt() -> None:
     liste_info.append(input("| ISBN du livre: "))
     liste_info.append(input("| Date de retour (yyyy-mm-jj): "))
 
-    curseur.execute("""
-INSERT INTO EMPRUNT (code_barre,isbn,retour)
-VALUES
-(?,?,?)
-""", liste_info)
-    connexion.commit()
+    try:
+        curseur.execute("""
+            INSERT INTO EMPRUNT (code_barre,isbn,retour)
+            VALUES
+            (?,?,?)
+        """, liste_info)
+        connexion.commit()
+    except sgbd.IntegrityError:
+        print(f"[‼️] Le livre d'isbn {liste_info[1]} n'a pas pu être emprunté. Peut-être est-il déjà emprunté?")
 
     pause()
 
