@@ -3,11 +3,9 @@ TODO - tester TOUTES LES FEATURES du programme**
 
 ** TESTS
 a verifier:
+  - recup emprunts d'une personne (1.1)
   - supprimer un livre (4.1)
   - supprimer un emprunt (4.2)
-  - supprimer un usager (4.3)
-ce qui marche:
-  - recup emprunts d'une personne (1.1)
   - voir si un livre est emprunté et par qui (1.2)
   - afficher les retards (1.3)
   - rechercher par mot clé (1.4)
@@ -17,6 +15,9 @@ ce qui marche:
   - infos sur livre (5.1)
   - infos sur usager (5.2)
   - changer une date de retour (3.1)
+  - modif données usager (tous les types de données) (3.2)
+  - supprimer un usager (4.3)
+
+ce qui marche:
 
 devrait marcher mais pas fini de tester:
-  - modif données usager (tous les types de données) (3.2)

@@ -58,12 +58,23 @@ def recherche_emprunt_personne() -> None:
         )""",
         [codebarre]
     )
+    livre = curseur.fetchall()
 
-    liste_res = curseur.fetchall()
-    if len(liste_res) > 0:
-        print(f"[✅] La personne ayant le code barre {codebarre} a emprunté {len(liste_res)} livres. Les voici:")
-        for livre in liste_res:
-            print(livre)
+    curseur.execute("""
+        SELECT prenom, nom FROM USAGER
+        WHERE code_barre = ?""",
+        [codebarre]
+    )
+    personne = curseur.fetchall()[0]
+
+    if len(livre) > 0:
+        print(f"[✅] La personne ayant le code barre {codebarre} a emprunté {len(livre)} livres. Les voici:")
+        print(f"[🧑] {personne[0]} {personne[1]} ({codebarre})")
+        for livre in livre:
+            print(f" | Titre: {livre[0]}")
+            print(f" | Auteur: ...")
+            print(f" | Editeur: {livre[1]}")
+            print(f" | Annee: {livre[2]}")
     else:
         print(f"[❌] La personne ayant le code barre {codebarre} n'a emprunté AUCUN livre... Peut-être serait-il temps ?")
 
