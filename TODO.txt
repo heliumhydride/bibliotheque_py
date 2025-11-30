@@ -1,3 +1,4 @@
+TODO - recherche_emprunt_personne(): un seul livre trouvé, même quand y'a plusieur livres d'empruntés
 TODO - delete_usager(): verifier si le code barre existe
 TODO - tester TOUTES LES FEATURES du programme**
 

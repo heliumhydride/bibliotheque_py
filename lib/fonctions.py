@@ -51,14 +51,36 @@ def date_du_jour() -> str:
 def recherche_emprunt_personne() -> None:
     codebarre = input("code barre? --> ")
     curseur.execute("""
-        SELECT titre, editeur, annee, isbn FROM LIVRE
-        WHERE isbn=(
-            SELECT isbn from EMPRUNT
-            WHERE code_barre = ?
-        )""",
+        SELECT isbn FROM EMPRUNT
+        WHERE code_barre = ?""",
         [codebarre]
     )
-    livre = curseur.fetchall()
+    liste_isbn = curseur.fetchall()
+
+    liste_livre = []
+    
+    for isbn in liste_isbn:
+        curseur.execute("""
+            SELECT titre, editeur, annee, isbn FROM LIVRE
+            WHERE isbn=?""",
+            [isbn[0]]
+        )
+        livre = list(curseur.fetchall()[0])
+
+        curseur.execute("""
+            SELECT prenom, nom FROM AUTEUR
+            WHERE id_auteur = (
+                SELECT id_auteur FROM AUTEUR_DE
+                WHERE isbn = ?
+            )""",
+            [isbn[0]]
+        )
+        auteur = curseur.fetchall()[0]
+        livre.append(auteur[0])
+        livre.append(auteur[1])
+        # auteur = (prenom,nom)
+
+        liste_livre.append(livre)
 
     curseur.execute("""
         SELECT prenom, nom FROM USAGER
@@ -67,14 +89,21 @@ def recherche_emprunt_personne() -> None:
     )
     personne = curseur.fetchall()[0]
 
-    if len(livre) > 0:
-        print(f"[✅] La personne ayant le code barre {codebarre} a emprunté {len(livre)} livres. Les voici:")
+    # NOTE:
+    # Ici: Nos structures sont:
+    #   personne: prenom, nom
+    #   livre: titre, editeur, annee, isbn, prenom_auteur, nom_auteur
+    if len(liste_livre) > 0:
+        print(f"[✅] La personne ayant le code barre {codebarre} a emprunté {len(liste_livre)} livres. Les voici:")
         print(f"[🧑] {personne[0]} {personne[1]} ({codebarre})")
-        for livre in livre:
-            print(f" | Titre: {livre[0]}")
-            print(f" | Auteur: ...")
-            print(f" | Editeur: {livre[1]}")
-            print(f" | Annee: {livre[2]}")
+        for livre in liste_livre:
+            print(f" | [📕] LIVRE")
+            print(f" |  | Titre: {livre[0]}")
+            print(f" |  | Auteur: {livre[4]} {livre[5]}")
+            print(f" |  | Editeur: {livre[1]}")
+            print(f" |  | Annee: {livre[2]}")
+            print(f" |  | ISBN: {livre[3]}")
+            print(" |")
     else:
         print(f"[❌] La personne ayant le code barre {codebarre} n'a emprunté AUCUN livre... Peut-être serait-il temps ?")
 
