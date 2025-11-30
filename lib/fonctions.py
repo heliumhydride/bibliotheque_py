@@ -87,7 +87,9 @@ def recherche_emprunt_personne() -> None:
         WHERE code_barre = ?""",
         [codebarre]
     )
-    personne = curseur.fetchall()[0]
+    personne = curseur.fetchall()
+    if(len(personne) >= 1):
+        personne = personne[0]
 
     # NOTE:
     # Ici: Nos structures sont:
@@ -126,13 +128,12 @@ def recherche_isbn() -> None:
 
     curseur.execute("""
         SELECT retour FROM EMPRUNT
-        WHERE isbn=?
-        """,
+        WHERE isbn=?""",
         [isbn]
     )
     date_retour = curseur.fetchall()
     if(len(date_retour) >= 1):
-        date_retour = curseur.fetchall()[0][0]
+        date_retour = date_retour[0][0]
 
     if(len(personne) >= 1):
         print(f"[✅] Le livre d'ISBN {isbn} a été emprunté.")
@@ -177,6 +178,7 @@ def afficher_retards() -> None:
     pause()
 
 def recherche_mot_cle() -> None:
+    print("note: aucune entrée permet d'afficher tous les livres enregistrés")
     recherche = input("mot clé ? --> ")
     # ATTENTION CA FAIT MAL AUX YEUX!!!
     curseur.execute("""
@@ -324,7 +326,7 @@ def ch_date_retour_livre() -> None:
     print("[📄] EMPRUNT")
     liste_info = []
     liste_info.append(input("| ISBN emprunté: "))
-    liste_info.append(input("| Nouvelle date de retour (yyy-mm-jj): "))
+    liste_info.append(input("| Nouvelle date de retour (yyyy-mm-jj): "))
 
     curseur.execute("""
         UPDATE EMPRUNT
@@ -384,7 +386,7 @@ def delete_livre() -> None:
             [isbn]
         )
 
-        if(len(curseur.fetchall) >= 1):
+        if(len(curseur.fetchall()) >= 1):
             # On vérifie si le livre est déjà emprunté, sinon on pourra pas supprimer son emprunt car il existera pas et on aura une erreur...
             curseur.execute("""
                 SELECT isbn FROM EMPRUNT
