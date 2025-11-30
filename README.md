@@ -6,6 +6,9 @@ un logiciel de gestion de bibliothèque en [TUI](https://fr.wikipedia.org/wiki/E
 
 ![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
 
+> [!WARNING]
+> Ce logiciel n'est pas fait pour la production. Vous pouvez essayer de l'utiliser dans un environment professionnel, mais à vos risques et périls.
+
 ### ❓ pourquoi?
 C'est pour un projet de NSI en Terminale sur les bases de données.
 

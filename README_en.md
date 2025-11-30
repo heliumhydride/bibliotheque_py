@@ -6,6 +6,9 @@ a [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)-based library m
 
 ![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
 
+> [!WARNING]
+> This software is not made for production. You can try to use it in a professional environment, but at your own risk.
+
 ### ❓ why?
 It was a project in senior year of high school for programming class.
 
