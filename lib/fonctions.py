@@ -337,47 +337,69 @@ def delete_livre() -> None:
     if isbn == "":
         print("\n[✋] Annulé")
     else:
-        # On vérifie si le livre est déjà emprunté, sinon on pourra pas supprimer son emprunt car il existera pas et on aura une erreur...
+        # Il existe le livre au moins ?
         curseur.execute("""
-            SELECT isbn FROM EMPRUNT
+            SELECT isbn FROM LIVRE
             WHERE isbn=?""",
             [isbn]
         )
-        emprunt_du_livre = curseur.fetchall()
 
-        if len(emprunt_du_livre) >= 1:
-            curseur.execute("""DELETE FROM EMPRUNT
-        WHERE isbn=?""", [isbn])
-            print("[i] l'emprunt du livre correspondant a été supprimé.'")
+        if(len(curseur.fetchall) >= 1):
+            # On vérifie si le livre est déjà emprunté, sinon on pourra pas supprimer son emprunt car il existera pas et on aura une erreur...
+            curseur.execute("""
+                SELECT isbn FROM EMPRUNT
+                WHERE isbn=?""",
+                [isbn]
+            )
+            emprunt_du_livre = curseur.fetchall()
+
+            if len(emprunt_du_livre) >= 1:
+                curseur.execute("""DELETE FROM EMPRUNT
+            WHERE isbn=?""", [isbn])
+                print("[i] l'emprunt du livre correspondant a été supprimé.'")
     
-        curseur.execute("""
-            DELETE FROM AUTEUR_DE
-            WHERE isbn=?""",
-            [isbn]
-        )
-        curseur.execute("""
-            DELETE FROM LIVRE
-            WHERE isbn=?""",
-            [isbn]
-        )
+            curseur.execute("""
+                DELETE FROM AUTEUR_DE
+                WHERE isbn=?""",
+                [isbn]
+            )
+            curseur.execute("""
+                DELETE FROM LIVRE
+                WHERE isbn=?""",
+                [isbn]
+            )
 
-        connexion.commit()
+            connexion.commit()
+            print(f"[🗑️] le livre d'isbn {isbn} a été supprimé de la bibliothèque.")
+        else:
+            print(f"[❌] le livre d'isbn {isbn} est introuvable, il ne peut pas être supprimé")
 
     pause()
 
 def delete_emprunt() -> None:
-    print("[📄🗑️] SUPPRIMER L'EMPREINT D'UN LIVRE")
+    print("[📄🗑️] SUPPRIMER L'EMPRUNT D'UN LIVRE")
     isbn = input("| ISBN: ")
 
     if isbn == "":
         print("\n[✋] Annulé")
     else:
+        # le livre est-il emprunté?
         curseur.execute("""
-            DELETE FROM EMPRUNT
+            SELECT isbn FROM EMPRUNT
             WHERE isbn=?""",
             [isbn]
         )
-        connexion.commit()
+        if(len(curseur.fetchall()) >= 1):
+            curseur.execute("""
+                DELETE FROM EMPRUNT
+                WHERE isbn=?""",
+                [isbn]
+            )
+
+            connexion.commit()
+            print(f"[🗑️] Le livre d'isbn {isbn} n'est plus emprunté")
+        else:
+            print(f"[❌] Le livre d'isbn n'a pas été emprunté")
 
     pause()
 

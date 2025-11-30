@@ -1,9 +1,11 @@
-TODO - delete_*(): vérifier si le contenu a supprimer existe réellement ou pas
-^^^^ pour les deux du dessus faut surement mettre un error handling des sqlite3.IntegrityError Unique constraint failed (avec des try/except), comme il y a dans 'scripts/make_db.py'
-TODO - nettoyer le code et les commentaires inutiles
+TODO - delete_usager(): verifier si le code barre existe
 TODO - tester TOUTES LES FEATURES du programme**
 
 ** TESTS
+a verifier:
+  - supprimer un livre (4.1)
+  - supprimer un emprunt (4.2)
+  - supprimer un usager (4.3)
 ce qui marche:
   - recup emprunts d'une personne (1.1)
   - voir si un livre est emprunté et par qui (1.2)
@@ -14,9 +16,6 @@ ce qui marche:
   - emprunter un livre (2.3)
   - infos sur livre (5.1)
   - infos sur usager (5.2)
-  - supprimer un livre (4.1)
-  - supprimer un emprunt (4.2)
-  - supprimer un usager (4.3)
   - changer une date de retour (3.1)
 
 devrait marcher mais pas fini de tester:
