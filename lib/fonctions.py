@@ -350,7 +350,9 @@ def delete_livre() -> None:
     print("[📕🗑️] SUPPRIMER UN LIVRE")
     isbn = input("| ISBN: ")
     # vu que supprimer est une opération relativement dangereuse on peut annuler en mettant rien à la place de l'isbn
-    if isbn != "":
+    if isbn == "":
+        print("\n[✋] Annulé")
+    else:
         # On vérifie si le livre est déjà emprunté, sinon on pourra pas supprimer son emprunt car il existera pas et on aura une erreur...
         curseur.execute("""
     SELECT isbn FROM EMPRUNT
@@ -377,7 +379,9 @@ def delete_emprunt() -> None:
     print("[📄🗑️] SUPPRIMER L'EMPREINT D'UN LIVRE")
     isbn = input("| ISBN: ")
 
-    if isbn != "":
+    if isbn == "":
+        print("\n[✋] Annulé")
+    else:
         curseur.execute("""DELETE FROM EMPRUNT
     WHERE isbn=?""", [isbn])
         connexion.commit()
@@ -388,7 +392,9 @@ def delete_usager() -> None:
     print("[🧑🗑️] SUPPRIMER UN USAGER")
     code_barre = input("| Code barre: ")
 
-    if code_barre != "":
+    if code_barre == "":
+        print("\n[✋] Annulé")
+    else:
         # même logique que quand on supprime un livre, on regard si l'usager a emprunté des livres et on supprimes ses emprunts d'abord
         curseur.execute("""
         SELECT code_barre FROM EMPRUNT
