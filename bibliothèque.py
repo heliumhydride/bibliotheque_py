@@ -4,7 +4,6 @@
 import os
 import sqlite3 as sgbd
 import random as r
-# import qrcode
 import lib.menu as menu # local, voir ./lib/menu.py
 from lib.fonctions import * # local, voir ./lib/fonctions.py
 

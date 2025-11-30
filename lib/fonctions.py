@@ -21,15 +21,6 @@ def mettre_connexion(cnx) -> None:
 def pause() -> None:
     input("\n>>> Appuyez sur entrer pour continuer... <<<")
 
-# def affiche_res_requete(message:str, liste_resultat:list):
-#     print(f"""[✅]
-#  | 
-#  | Requête exécutée avec succès. {len(liste_resultat)} résultat trouvés.
-#  | {message} :
-#  | """)
-#     for i in range(0,len(liste_resultat)):
-#         print(f" |--- {i+1}. {liste_resultat[i]}")
-
 def make_code_barre() -> str:
     """
     Donne un code barre aléatoire
@@ -41,8 +32,10 @@ def make_code_barre() -> str:
         code_barre = f"{r.randint(0, int(999999999999999)):015d}" # extrêmement moche, mais compact et ça marche
         # on vérifie si le code barre n'existe pas déjà
         curseur.execute("""
-        SELECT code_barre FROM USAGER
-        WHERE code_barre=?""", [code_barre])
+            SELECT code_barre FROM USAGER
+            WHERE code_barre=?""",
+            [code_barre]
+        )
         if(len(curseur.fetchall()) == 0):
             code_barre_valide = True
     return code_barre
@@ -57,11 +50,14 @@ def date_du_jour() -> str:
 ### Submenu 1
 def recherche_emprunt_personne() -> None:
     codebarre = input("code barre? --> ")
-    curseur.execute("""SELECT titre, editeur, annee, isbn FROM LIVRE
-WHERE isbn=(
-    SELECT isbn from EMPRUNT
-    WHERE code_barre = ?
-)""", [codebarre])
+    curseur.execute("""
+        SELECT titre, editeur, annee, isbn FROM LIVRE
+        WHERE isbn=(
+            SELECT isbn from EMPRUNT
+            WHERE code_barre = ?
+        )""",
+        [codebarre]
+    )
 
     liste_res = curseur.fetchall()
     if len(liste_res) > 0:
@@ -133,16 +129,6 @@ def afficher_retards() -> None:
                 print(f"|   [📕] LIVRE")
                 print(f"|    | ISBN: {emprunt[1]}")
             print("")
-
-        # for emprunt in liste_res:
-        #     print("[📄] EMPRUNT (en retard)")
-        #     print(f"| ISBN: {emprunt[1]}")
-        #     print(f"| Date de retour: {emprunt[2]}")
-        #     print("| Au nom de:")
-        #     print("|   [🧑] USAGER")
-        #     print(f"|   | Prénom, Nom: {emprunt[4]} {emprunt[3]}")
-        #     print(f"|   | Code barre: {emprunt[0]}")
-        #     print("")
     else:
         print("[🥳] Aucune personne n'est en retard! Génial!")
 
@@ -226,8 +212,7 @@ def new_livre() -> None:
     if len(curseur.fetchall()) == 0: # si l'auteur n'est pas trouvé
         curseur.execute("""
             INSERT INTO AUTEUR (nom,prenom)
-            VALUES (?,?)
-        """,
+            VALUES (?,?)""",
             (
                 liste_info["nom_aut"],
                 liste_info["prenom_aut"]
@@ -237,8 +222,7 @@ def new_livre() -> None:
     # On récupère l'id_auteur de l'auteur concerné
     curseur.execute("""
         SELECT id_auteur FROM AUTEUR
-        WHERE nom = ? AND prenom = ?
-    """,
+        WHERE nom = ? AND prenom = ?""",
         (
                 liste_info["nom_aut"],
                 liste_info["prenom_aut"]
@@ -249,8 +233,7 @@ def new_livre() -> None:
 
     curseur.execute("""
         INSERT INTO AUTEUR_DE (id_auteur, isbn)
-        VALUES (?,?)
-    """,
+        VALUES (?,?)""",
         (
             liste_info["id_aut"],
             liste_info["isbn"]
@@ -261,8 +244,7 @@ def new_livre() -> None:
         curseur.execute("""
             INSERT INTO LIVRE (titre,editeur,annee,isbn)
             VALUES
-            (?,?,?,?)
-            """,
+            (?,?,?,?)""",
             (
                 liste_info["titre"],
                 liste_info["editeur"],
@@ -305,8 +287,7 @@ def ch_date_retour_livre() -> None:
     curseur.execute("""
         UPDATE EMPRUNT
         SET retour = ?
-        WHERE isbn = ?
-    """,
+        WHERE isbn = ?""",
         (
             liste_info[1],
             liste_info[0]
@@ -336,10 +317,11 @@ def ch_usager(donnee:str) -> None:
         new_donnee = input("| Nouvel e-mail: ")
     
     curseur.execute(f"""
-UPDATE USAGER
-SET {donnee}=?
-WHERE code_barre=?
-""", [new_donnee,code_barre])
+        UPDATE USAGER
+        SET {donnee}=?
+        WHERE code_barre=?""",
+        [new_donnee,code_barre]
+    )
     connexion.commit()
 
     pause()
@@ -355,8 +337,10 @@ def delete_livre() -> None:
     else:
         # On vérifie si le livre est déjà emprunté, sinon on pourra pas supprimer son emprunt car il existera pas et on aura une erreur...
         curseur.execute("""
-    SELECT isbn FROM EMPRUNT
-    WHERE isbn=?""", [isbn])
+            SELECT isbn FROM EMPRUNT
+            WHERE isbn=?""",
+            [isbn]
+        )
         emprunt_du_livre = curseur.fetchall()
 
         if len(emprunt_du_livre) >= 1:
@@ -365,11 +349,15 @@ def delete_livre() -> None:
             print("[i] l'emprunt du livre correspondant a été supprimé.'")
     
         curseur.execute("""
-    DELETE FROM AUTEUR_DE
-    WHERE isbn=?""", [isbn])
+            DELETE FROM AUTEUR_DE
+            WHERE isbn=?""",
+            [isbn]
+        )
         curseur.execute("""
-    DELETE FROM LIVRE
-    WHERE isbn=?""", [isbn])
+            DELETE FROM LIVRE
+            WHERE isbn=?""",
+            [isbn]
+        )
 
         connexion.commit()
 
@@ -382,8 +370,11 @@ def delete_emprunt() -> None:
     if isbn == "":
         print("\n[✋] Annulé")
     else:
-        curseur.execute("""DELETE FROM EMPRUNT
-    WHERE isbn=?""", [isbn])
+        curseur.execute("""
+            DELETE FROM EMPRUNT
+            WHERE isbn=?""",
+            [isbn]
+        )
         connexion.commit()
 
     pause()
@@ -397,17 +388,24 @@ def delete_usager() -> None:
     else:
         # même logique que quand on supprime un livre, on regard si l'usager a emprunté des livres et on supprimes ses emprunts d'abord
         curseur.execute("""
-        SELECT code_barre FROM EMPRUNT
-        WHERE code_barre=?""", [code_barre])
+            SELECT code_barre FROM EMPRUNT
+            WHERE code_barre=?""",
+            [code_barre]
+        )
         emprunts = curseur.fetchall()
 
         if len(emprunts) >= 1:
             curseur.execute("""
-        DELETE FROM EMPRUNT
-        WHERE code_barre=?""", [code_barre])
+                DELETE FROM EMPRUNT
+                WHERE code_barre=?""",
+                [code_barre]
+            )
 
-        curseur.execute("""DELETE FROM USAGER
-    WHERE code_barre=?""", [code_barre])
+        curseur.execute("""
+            DELETE FROM USAGER
+            WHERE code_barre=?""",
+            [code_barre]
+        )
         connexion.commit()
 
     pause()
