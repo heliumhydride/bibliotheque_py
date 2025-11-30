@@ -309,15 +309,37 @@ def new_emprunt() -> None:
     liste_info.append(input("| ISBN du livre: "))
     liste_info.append(input("| Date de retour (yyyy-mm-jj): "))
 
-    try:
-        curseur.execute("""
-            INSERT INTO EMPRUNT (code_barre,isbn,retour)
-            VALUES
-            (?,?,?)
-        """, liste_info)
-        connexion.commit()
-    except sgbd.IntegrityError:
-        print(f"[‼️] Le livre d'isbn {liste_info[1]} n'a pas pu être emprunté. Peut-être est-il déjà emprunté?")
+    # verifier si la personne pour laquelle il faut emprunter existe bien
+    curseur.execute("""
+        SELECT * FROM USAGER
+        WHERE code_barre=?""",
+        [liste_info[0]]
+    )
+    res_personne = curseur.fetchall()
+
+    # verifier si le livre a emprunter existe
+    curseur.execute("""
+        SELECT * FROM LIVRE
+        WHERE isbn=?""",
+        [liste_info[1]]
+    )
+    res_livre = curseur.fetchall()
+
+    if(res_personne == []):
+        print("[❌] Impossible d'emprunter un livre, la personne specifiée n'est pas enregistrée")
+    elif(res_livre == []):
+        print("[❌] Impossible d'emprunter le livre, car il n'est pas enregistré")
+    else:
+        try:
+            curseur.execute("""
+                INSERT INTO EMPRUNT (code_barre,isbn,retour)
+                VALUES
+                (?,?,?)""",
+                liste_info
+            )
+            connexion.commit()
+        except sgbd.IntegrityError:
+            print(f"[‼️] Le livre d'isbn {liste_info[1]} n'a pas pu être emprunté. Peut-être est-il déjà emprunté?")
 
     pause()
 
