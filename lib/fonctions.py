@@ -350,17 +350,26 @@ def ch_date_retour_livre() -> None:
     liste_info.append(input("| ISBN emprunté: "))
     liste_info.append(input("| Nouvelle date de retour (yyyy-mm-jj): "))
 
+    # verifier l'emprunt du livre
     curseur.execute("""
-        UPDATE EMPRUNT
-        SET retour = ?
-        WHERE isbn = ?""",
-        (
-            liste_info[1],
-            liste_info[0]
-        )
+        SELECT * FROM EMPRUNT
+        WHERE isbn=?""",
+        [liste_info[0]]
     )
+    if(curseur.fetchall() == []):
+        print("[❌] Livre non emprunté")
+    else:
+        curseur.execute("""
+            UPDATE EMPRUNT
+            SET retour = ?
+            WHERE isbn = ?""",
+            (
+                liste_info[1],
+                liste_info[0]
+            )
+        )
+        connexion.commit()
 
-    connexion.commit()
     pause()
 
 def ch_usager(donnee:str) -> None:

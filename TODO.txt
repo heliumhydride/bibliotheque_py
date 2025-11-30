@@ -1,14 +1,10 @@
+TODO - afficher date de retour dans les retards (avec le nombre de jours de retard)
 TODO - pouvoir modifier les données d'un livre
-TODO - faire en sorte que l'on puisse pas emprunter de livre qui n'existe pas
-TODO - verifier si le livre dont il faut changer la date de retour est emprunté
-TODO - afficher date de retour dans les retards
 TODO - delete_usager(): verifier si le code barre existe
 TODO - tester TOUTES LES FEATURES du programme**
 
 ** TESTS
 a verifier:
-  - emprunter un livre (2.3)
-  - changer une date de retour (3.1)
   - modif données usager (tous les types de données) (3.2)
 
 ce qui marche:
@@ -18,6 +14,8 @@ ce qui marche:
   - rechercher par mot clé (1.4)
   - ajouter un usager (2.1)
   - ajotuer un livre  (2.2)
+  - emprunter un livre (2.3)
+  - changer une date de retour (3.1)
   - supprimer un livre (4.1)
   - supprimer un emprunt (4.2)
   - supprimer un usager (4.3)
