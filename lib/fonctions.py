@@ -548,8 +548,9 @@ def info_usager() -> None:
     )
     liste_res = curseur.fetchall()
 
-    liste_res = liste_res[0] # de toute façon on a qu'un seul résultat
+
     if(len(liste_res) >= 1):
+        liste_res = liste_res[0] # de toute façon on a qu'un seul résultat
         print(f"[🧑] USAGER ({code_barre})")
         print(f" | Prénom, Nom: {liste_res[0]} {liste_res[1]}")
         print(f" | E-mail: {liste_res[2]}")
