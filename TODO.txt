@@ -1,4 +1,5 @@
 TODO - afficher date de retour dans les retards (avec le nombre de jours de retard)
+TODO - bien formatter les print en arbre (mettre les espaces correctement)
 TODO - pouvoir modifier les données d'un livre
 TODO - delete_usager(): verifier si le code barre existe
 TODO - tester TOUTES LES FEATURES du programme**

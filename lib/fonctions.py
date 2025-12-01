@@ -169,8 +169,12 @@ def afficher_retards() -> None:
             print(f"| Code barre: {key[0]}")
             print(f"| En retard de:")
             for emprunt in group:
+                # les lignes ci-dessous permettent de calculer l'écart entre la date de retour et la date actuelle.
+                a = dt.datetime.strptime(emprunt[2], "%Y-%m-%d").date()
+                b = dt.datetime.strptime(date_du_jour(), "%Y-%m-%d").date()
                 print(f"|   [📕] LIVRE")
                 print(f"|    | ISBN: {emprunt[1]}")
+                print(f"|    | Dû pour le: {emprunt[2]} (retard de {(b-a).days}j)")
             print("")
     else:
         print("[🥳] Aucune personne n'est en retard! Génial!")
