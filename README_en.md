@@ -4,7 +4,7 @@
 
 a [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)-based library management software
 
-![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
+![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.gif)
 
 > [!WARNING]
 > This software is not made for production. You can try to use it in a professional environment, but at your own risk.

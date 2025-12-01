@@ -4,7 +4,7 @@
 
 un logiciel de gestion de bibliothèque en [TUI](https://fr.wikipedia.org/wiki/Environnement_en_mode_texte)
 
-![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.png)
+![](https://raw.githubusercontent.com/heliumhydride/bibliotheque_py/master/assets/main_menu.gif)
 
 > [!WARNING]
 > Ce logiciel n'est pas fait pour la production. Vous pouvez essayer de l'utiliser dans un environment professionnel, mais à vos risques et périls.
