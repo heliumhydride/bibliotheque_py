@@ -139,11 +139,11 @@ def recherche_isbn() -> None:
         print(f"[✅] Le livre d'ISBN {isbn} a été emprunté.")
         print("")
         print("[📄] EMPRUNT")
-        print(f"| Date de retour: {date_retour}")
-        print("| Au nom de:")
-        print("|   [🧑] USAGER")
-        print(f"|   | Prénom, Nom: {personne[1]} {personne[0]}")
-        print(f"|   | Code barre: {personne[2]}")
+        print(f" | Date de retour: {date_retour}")
+        print(" | Au nom de:")
+        print(" |   [🧑] USAGER")
+        print(f" |   | Prénom, Nom: {personne[1]} {personne[0]}")
+        print(f" |   | Code barre: {personne[2]}")
         print("")
     else:
         print(f"[❌] Le livre d'ISBN {isbn} n'a pas été emprunté par une seule personne...")
@@ -165,16 +165,16 @@ def afficher_retards() -> None:
         print("")
         for key, group in it.groupby(liste_res, lambda x: (x[0], x[3], x[4])):
             print("[🧑] USAGER")
-            print(f"| Prénom, Nom: {key[2]} {key[1]}")
-            print(f"| Code barre: {key[0]}")
-            print(f"| En retard de:")
+            print(f" | Prénom, Nom: {key[2]} {key[1]}")
+            print(f" | Code barre: {key[0]}")
+            print(f" | En retard de:")
             for emprunt in group:
                 # les lignes ci-dessous permettent de calculer l'écart entre la date de retour et la date actuelle.
                 a = dt.datetime.strptime(emprunt[2], "%Y-%m-%d").date()
                 b = dt.datetime.strptime(date_du_jour(), "%Y-%m-%d").date()
-                print(f"|   [📕] LIVRE")
-                print(f"|    | ISBN: {emprunt[1]}")
-                print(f"|    | Dû pour le: {emprunt[2]} (retard de {(b-a).days}j)")
+                print(f" |   [📕] LIVRE")
+                print(f" |    | ISBN: {emprunt[1]}")
+                print(f" |    | Dû pour le: {emprunt[2]} (retard de {(b-a).days}j)")
             print("")
     else:
         print("[🥳] Aucune personne n'est en retard! Génial!")
@@ -200,11 +200,11 @@ def recherche_mot_cle() -> None:
         print("")
         for livre in liste_res:
             print("[📕] LIVRE")
-            print(f"| Titre: {livre[0]}")
-            print(f"| Auteur: {livre[1]} {livre[2]}")
-            print(f"| Editeur: {livre[3]}")
-            print(f"| Annee: {livre[4]}")
-            print(f"| ISBN: {livre[5]}")
+            print(f" | Titre: {livre[0]}")
+            print(f" | Auteur: {livre[1]} {livre[2]}")
+            print(f" | Editeur: {livre[3]}")
+            print(f" | Annee: {livre[4]}")
+            print(f" | ISBN: {livre[5]}")
             print("")
     else:
         print(f"[❌] Aucun livre trouvé ayant le mot \"{recherche}\"...")
@@ -218,14 +218,14 @@ def new_usager() -> None:
     print("[🧑] USAGER")
     # a mon humble avis ça fait moins moche que de faire 10000000 variables pour rien dans la mémoire, et en plus on créé le tuple d'avance (enfin une liste qu'on converti en tuple)
     liste_info = []
-    liste_info.append(input("| Nom: "))
-    liste_info.append(input("| Prénom: "))
-    liste_info.append(input("| Addresse: "))
-    liste_info.append(int(input("| Code postal: ")))
-    liste_info.append(input("| Ville: "))
-    liste_info.append(input("| E-Mail: "))
+    liste_info.append(input(" | Nom: "))
+    liste_info.append(input(" | Prénom: "))
+    liste_info.append(input(" | Addresse: "))
+    liste_info.append(int(input(" | Code postal: ")))
+    liste_info.append(input(" | Ville: "))
+    liste_info.append(input(" | E-Mail: "))
     liste_info.append(make_code_barre())
-    print(f"| Code barre: {liste_info[6]} (généré automatiquement)")
+    print(f" | Code barre: {liste_info[6]} (généré automatiquement)")
 
     curseur.execute("""
 INSERT INTO USAGER (nom,prenom,adresse,cp,ville,email,code_barre)
@@ -240,12 +240,12 @@ def new_livre() -> None:
     print("[📕] LIVRE")
     liste_info = {} # titre // prenom auteur // nom auteur // editeur // annee // isbn
 
-    liste_info["titre"] = input("| Titre: ")
-    liste_info["prenom_aut"] = input("| Prenom de l'auteur: ")
-    liste_info["nom_aut"] = input("| Nom de l'auteur: ")
-    liste_info["editeur"] = input("| Editeur: ")
-    liste_info["annee"] = int(input("| Année: "))
-    liste_info["isbn"] = input("| ISBN: ")
+    liste_info["titre"] = input(" | Titre: ")
+    liste_info["prenom_aut"] = input(" | Prenom de l'auteur: ")
+    liste_info["nom_aut"] = input(" | Nom de l'auteur: ")
+    liste_info["editeur"] = input(" | Editeur: ")
+    liste_info["annee"] = int(input(" | Année: "))
+    liste_info["isbn"] = input(" | ISBN: ")
 
     # on vérifie si l'auteur existe, sinon on l'ajoute a la db dans la table AUTEUR
     curseur.execute("""
@@ -309,9 +309,9 @@ def new_livre() -> None:
 def new_emprunt() -> None:
     print("[📄] EMPRUNT")
     liste_info = []
-    liste_info.append(input("| Code barre de l'usager: "))
-    liste_info.append(input("| ISBN du livre: "))
-    liste_info.append(input("| Date de retour (yyyy-mm-jj): "))
+    liste_info.append(input(" | Code barre de l'usager: "))
+    liste_info.append(input(" | ISBN du livre: "))
+    liste_info.append(input(" | Date de retour (yyyy-mm-jj): "))
 
     # verifier si la personne pour laquelle il faut emprunter existe bien
     curseur.execute("""
@@ -383,17 +383,17 @@ def ch_usager(donnee:str) -> None:
     code_barre = input("code barre du concerné? --> ")
     print(f"[🧑] USAGER -- ({code_barre})")
     if donnee == "nom":
-        new_donnee = input("| Nouveau nom: ")
+        new_donnee = input(" | Nouveau nom: ")
     elif donnee == "prenom":
-        new_donnee = input("| Nouveau prénom: ")
+        new_donnee = input(" | Nouveau prénom: ")
     elif donnee == "adresse":
-        new_donnee = input("| Nouvelle adresse: ")
+        new_donnee = input(" | Nouvelle adresse: ")
     elif donnee == "cp":
-        new_donnee = input("| Nouveau code postal: ")
+        new_donnee = input(" | Nouveau code postal: ")
     elif donnee == "ville":
-        new_donnee = input("| Nouvelle ville: ")
+        new_donnee = input(" | Nouvelle ville: ")
     elif donnee == "email":
-        new_donnee = input("| Nouvel e-mail: ")
+        new_donnee = input(" | Nouvel e-mail: ")
     
     curseur.execute(f"""
         UPDATE USAGER
@@ -528,10 +528,10 @@ def info_livre() -> None:
 
     if(len(liste_res) >= 1):
         print(f"[📕] LIVRE ({isbn})")
-        print(f"| Titre: {liste_res[0][0]}")
-        print(f"| Auteur: {liste_res[0][1]} {liste_res[0][2]}")
-        print(f"| Editeur: {liste_res[0][3]}")
-        print(f"| Annee: {liste_res[0][4]}")
+        print(f" | Titre: {liste_res[0][0]}")
+        print(f" | Auteur: {liste_res[0][1]} {liste_res[0][2]}")
+        print(f" | Editeur: {liste_res[0][3]}")
+        print(f" | Annee: {liste_res[0][4]}")
         print("")
     else:
         print(f"[❌] Livre d'ISBN '{isbn}' introuvable")
@@ -551,11 +551,11 @@ def info_usager() -> None:
     liste_res = liste_res[0] # de toute façon on a qu'un seul résultat
     if(len(liste_res) >= 1):
         print(f"[🧑] USAGER ({code_barre})")
-        print(f"| Prénom, Nom: {liste_res[0]} {liste_res[1]}")
-        print(f"| E-mail: {liste_res[2]}")
-        print(f"| Adresse: {liste_res[3]}")
-        print(f"| Ville: {liste_res[4]}")
-        print(f"| Code postal: {liste_res[5]}")
+        print(f" | Prénom, Nom: {liste_res[0]} {liste_res[1]}")
+        print(f" | E-mail: {liste_res[2]}")
+        print(f" | Adresse: {liste_res[3]}")
+        print(f" | Ville: {liste_res[4]}")
+        print(f" | Code postal: {liste_res[5]}")
         print("")
     else:
         print(f"[❌] Aucune personne avec le code barre {code_barre} trouvée.")
